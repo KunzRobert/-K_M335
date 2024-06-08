@@ -1,0 +1,7 @@
+{
+  "name": "scavanger-hunt",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
