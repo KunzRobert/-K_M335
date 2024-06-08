@@ -8,7 +8,9 @@
     <p>Allow these functions to continue:</p>
   </div>
 
-  <ion-button class="cam-loc-btn">
+  <ion-button
+    (click)="requestPermissions()"
+    [ngClass]="{'btn-green': hasCameraAccess(), 'cam-loc-btn': !hasCameraAccess()}">
     <ion-icon slot="start" name="camera-outline"></ion-icon>
     Camera
   </ion-button>
