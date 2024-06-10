@@ -2,13 +2,8 @@
   <h1>Scavenger Hunt!</h1>
 </div>
 
-<p>Task 1:</p>
-<p>Move to the following coordinates:</p>
-<p>Latitude: 47.0764261, Longitude: 8.3452189</p>
-
-@if (distanceToTarget !== null) {
-  <p>Distance to target: {{ distanceToTarget | number: '1.2-2' }} meters</p>
-}
+<p>Task 2:</p>
+<p>Walk 20 Meter forward:</p>
 
 <ion-checkbox labelPlacement="start" [checked]="isCompleted" [disabled]="true"
               [ngClass]="{'completed-checkbox': isCompleted, 'not-completed-checkbox': !isCompleted}">
@@ -17,13 +12,9 @@
 
 <ion-item-divider></ion-item-divider>
 
-<ion-button (click)="getCurrentPosition()" class="check-position-btn">
-  Check Position
-</ion-button>
-
 <ion-button class="start-btn" [disabled]="!isCompleted"
             [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
-(click)="navigateToTask2()">
+>
   Continue
 </ion-button>
 
