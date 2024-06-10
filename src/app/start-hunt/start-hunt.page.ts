@@ -10,6 +10,7 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-start-hunt',
@@ -23,7 +24,7 @@ export class StartHuntPage implements OnInit {
   userName: string = '';
   isCompleted = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     setInterval(() => {
@@ -33,5 +34,11 @@ export class StartHuntPage implements OnInit {
 
   checkCompletion() {
     this.isCompleted = this.userName.trim().length > 0;
+  }
+
+  navigateToTask1() {
+    if (this.isCompleted) {
+      this.router.navigate(['task-1']).then(r => {});
+    }
   }
 }
