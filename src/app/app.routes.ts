@@ -14,4 +14,8 @@ export const routes: Routes = [
     path: 'start-hunt',
     loadComponent: () => import('./start-hunt/start-hunt.page').then( m => m.StartHuntPage)
   },
+  {
+    path: 'task-1',
+    loadComponent: () => import('./task-1/task-1.page').then( m => m.Task1Page)
+  },
 ];

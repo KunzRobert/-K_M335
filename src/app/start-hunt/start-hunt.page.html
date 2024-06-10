@@ -17,7 +17,8 @@
 <ion-item-divider></ion-item-divider>
 
 <ion-button class="start-btn" [disabled]="!isCompleted"
-            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': isCompleted}">
+            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': isCompleted}"
+            (click)="navigateToTask1()">
   Start the scavenger hunt!
 </ion-button>
 
