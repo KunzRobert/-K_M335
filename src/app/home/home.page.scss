@@ -6,30 +6,6 @@
   text-align: center;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
-}
-
-p {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-}
-
-ion-button {
-  display: block;
-  margin: 10px auto;
-  width: 80%;
-}
-
-.cancel-button {
-  --background: lightcoral;
-}
-
-.start-btn {
-  --background: #2596be;
-}
-
 .cam-loc-btn {
   --background: grey;
 }
@@ -38,6 +14,14 @@ ion-button {
   --background: green;
 }
 
-ion-item-divider {
-  margin: 20px 0;
+.completed-checkbox {
+  --checkbox-background-checked: green;
+  --checkmark-color: white;
+  --text-color: green;
+}
+
+.not-completed-checkbox {
+  --background: lightgray;
+  --border-color: lightgray;
+  --checkmark-color: black;
 }

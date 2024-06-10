@@ -35,3 +35,35 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+ion-button {
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+}
+
+ion-item-divider {
+  margin: 20px 0;
+}
+
+.cancel-button {
+  --background: lightcoral;
+}
+
+.start-btn {
+  --background: #2b78e4
+}
+
+.start-btn-disabled {
+  --background: #2596be;
+}

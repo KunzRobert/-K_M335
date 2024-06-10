@@ -12,6 +12,8 @@ import {addIcons} from "ionicons";
 import {cameraOutline, locationOutline} from "ionicons/icons";
 import {Camera} from '@capacitor/camera';
 import {AsyncPipe, NgClass} from "@angular/common";
+import { Geolocation } from '@capacitor/geolocation';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -22,21 +24,50 @@ import {AsyncPipe, NgClass} from "@angular/common";
 })
 export class HomePage {
 
-  hasCameraPermissions = false;
+  hasCameraPermission = false;
+  hasLocationPermission = false;
 
-  constructor() {
+  constructor(private router: Router) {
     addIcons({cameraOutline, locationOutline})
 
     Camera.checkPermissions()
-      .then(c => this.hasCameraPermissions = c.camera === 'granted');
+      .then(c => this.hasCameraPermission = c.camera === 'granted');
+
+    Geolocation.checkPermissions()
+      .then(c => this.hasLocationPermission = c.location === 'granted')
   }
 
-  async requestPermissions(): Promise<void> {
+  async requestCameraPermission(): Promise<void> {
     Camera.requestPermissions({permissions: ['camera']})
-      .then(res => this.hasCameraPermissions = res.camera === 'granted')
+      .then(res => this.hasCameraPermission = res.camera === 'granted')
   }
 
   hasCameraAccess(): boolean {
-    return this.hasCameraPermissions;
+    return this.hasCameraPermission;
+  }
+
+  printCurrentPosition = async () => {
+    const coordinates = await Geolocation.getCurrentPosition();
+
+    console.log('Current position:', coordinates);
+  };
+
+  async requestLocationPermission(): Promise<void> {
+    Geolocation.requestPermissions({permissions: ['location']})
+      .then(res => this.hasLocationPermission = res.location === 'granted')
+  }
+
+  hasLocationAccess(): boolean {
+    return this.hasLocationPermission;
+  }
+
+  hasPermissions(): boolean {
+    return this.hasLocationPermission && this.hasCameraPermission;
+  }
+
+  navigateToStartHunt() {
+    if (this.hasPermissions()) {
+      this.router.navigate(['start-hunt']).then(r => {});
+    }
   }
 }

@@ -10,4 +10,8 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'start-hunt',
+    loadComponent: () => import('./start-hunt/start-hunt.page').then( m => m.StartHuntPage)
+  },
 ];

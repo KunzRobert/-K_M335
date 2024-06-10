@@ -1,0 +1,26 @@
+<div>
+  <h1>
+    Scavenger Hunt!
+  </h1>
+</div>
+
+<p>Task 0:</p>
+<p>Enter your name:</p>
+<ion-item>
+  <ion-input [(ngModel)]="userName" placeholder="your name:"></ion-input>
+</ion-item>
+
+<ion-checkbox labelPlacement="start" [checked]="isCompleted" [disabled]="true"
+              [ngClass]="{'completed-checkbox': isCompleted, 'not-completed-checkbox': !isCompleted}">
+  You have completed this task
+</ion-checkbox>
+<ion-item-divider></ion-item-divider>
+
+<ion-button class="start-btn" [disabled]="!isCompleted"
+            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': isCompleted}">
+  Start the scavenger hunt!
+</ion-button>
+
+<ion-button [disabled]="true" class="cancel-button" >
+  Cancel
+</ion-button>
