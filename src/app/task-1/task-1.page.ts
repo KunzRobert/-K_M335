@@ -15,6 +15,7 @@ import {
 
 import {Geolocation} from "@capacitor/geolocation";
 import {haversineDistance} from "../geolocation.utils";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-1',
@@ -35,7 +36,7 @@ export class Task1Page {
   };
   readonly DISTANCE_THRESHOLD = 5;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   async getCurrentPosition() {
@@ -50,10 +51,12 @@ export class Task1Page {
 
     this.distanceToTarget = distance;
 
-    if (distance <= this.DISTANCE_THRESHOLD) {
-      this.isCompleted = true;
-    } else {
-      this.isCompleted = false;
+    this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
+  }
+
+  navigateToTask2() {
+    if (this.isCompleted) {
+      this.router.navigate(['task-2']).then(() => {});
     }
   }
 }
