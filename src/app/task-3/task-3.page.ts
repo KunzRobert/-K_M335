@@ -12,6 +12,7 @@ import {
 } from '@ionic/angular/standalone';
 import {BarcodeScanner} from '@capacitor-community/barcode-scanner';
 import {Router} from "@angular/router";
+import {ScoreboardService} from "../scoreboard-service.service";
 
 @Component({
   selector: 'app-task-3',
@@ -24,7 +25,7 @@ export class Task3Page {
 
   isCompleted = false;
 
-  constructor(private router: Router ) { }
+  constructor(private router: Router, private scoreboardService: ScoreboardService ) { }
 
   async startScan() {
     try {
@@ -52,9 +53,16 @@ export class Task3Page {
 
   navigateToTask4() {
     if (this.isCompleted) {
+      this.scoreboardService.stopTimer();
+      this.scoreboardService.addRun(this.scoreboardService.getUserName());
       this.router.navigate(['task-4']).then(() => {
         document.body.classList.remove('scanner-active');
       });
     }
+  }
+
+  backToStart() {
+    this.router.navigate(['start-hunt']).then(() => {
+    });
   }
 }
