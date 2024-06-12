@@ -7,7 +7,9 @@
 <p>Latitude: 47.0764261, Longitude: 8.3452189</p>
 
 @if (distanceToTarget !== null) {
-  <p>Distance to target: {{ distanceToTarget | number: '1.2-2' }} meters</p>
+  <p>
+    Distance to target: {{ distanceToTarget | number: '1.2-2' }} meters
+  </p>
 }
 
 <ion-checkbox labelPlacement="start" [checked]="isCompleted" [disabled]="true"
@@ -16,10 +18,6 @@
 </ion-checkbox>
 
 <ion-item-divider></ion-item-divider>
-
-<ion-button (click)="getCurrentPosition()" class="check-position-btn">
-  Check Position
-</ion-button>
 
 <ion-button class="start-btn" [disabled]="!isCompleted"
             [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"

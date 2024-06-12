@@ -23,11 +23,11 @@ import {Router} from "@angular/router";
 })
 export class Task2Page implements OnInit, OnDestroy {
 
-  isCompleted = true;
+  isCompleted = false;
   startCoords: { latitude: number; longitude: number } | null = null;
   watchId: string | null = null;
 
-  readonly DISTANCE_THRESHOLD = 20;
+  readonly DISTANCE_THRESHOLD = 10;
 
   constructor(private router: Router) { }
 
@@ -85,7 +85,6 @@ export class Task2Page implements OnInit, OnDestroy {
   }
 
   backToStart() {
-    this.router.navigate(['start-hunt']).then(r => {
-    });
+    this.router.navigate(['start-hunt']).then();
   }
 }
