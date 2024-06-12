@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -10,7 +10,7 @@ import {
     IonTitle,
     IonToolbar
 } from '@ionic/angular/standalone';
-import {BarcodeScanner} from "@capacitor-community/barcode-scanner";
+import {BarcodeScanner} from '@capacitor-community/barcode-scanner';
 import {Router} from "@angular/router";
 
 @Component({
@@ -20,13 +20,11 @@ import {Router} from "@angular/router";
   standalone: true,
     imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonCheckbox, IonItemDivider]
 })
-export class Task3Page implements OnInit {
+export class Task3Page {
 
   isCompleted = false;
 
-  constructor(private router: Router) { }
-
-  ngOnInit() { }
+  constructor(private router: Router ) { }
 
   async startScan() {
     try {
@@ -36,7 +34,7 @@ export class Task3Page implements OnInit {
       const result = await BarcodeScanner.startScan();
 
       if (result.hasContent) {
-        if (result.content === 'nicht M335@ICT-BZ') {
+        if (result.content === 'M335@ICT-BZ') {
           this.isCompleted = true;
         } else {
           alert('Incorrect QR code');
@@ -54,7 +52,9 @@ export class Task3Page implements OnInit {
 
   navigateToTask4() {
     if (this.isCompleted) {
-      this.router.navigate(['task-4']).then(() => {});
+      this.router.navigate(['task-4']).then(() => {
+        document.body.classList.remove('scanner-active');
+      });
     }
   }
 }
