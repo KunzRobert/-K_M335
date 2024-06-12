@@ -40,18 +40,22 @@ export class Task1Page {
   }
 
   async getCurrentPosition() {
-    const coordinates = await Geolocation.getCurrentPosition();
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
 
-    const currentCoords = {
-      latitude: coordinates.coords.latitude,
-      longitude: coordinates.coords.longitude,
-    };
+      const currentCoords = {
+        latitude: coordinates.coords.latitude,
+        longitude: coordinates.coords.longitude,
+      };
 
-    const distance = haversineDistance(currentCoords, this.TARGET_COORDS);
+      const distance = haversineDistance(currentCoords, this.TARGET_COORDS);
 
-    this.distanceToTarget = distance;
+      this.distanceToTarget = distance;
 
-    this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
+      this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
+    } catch (error) {
+      console.error('Error getting current position:', error);
+    }
   }
 
   navigateToTask2() {

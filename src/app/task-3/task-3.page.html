@@ -2,8 +2,8 @@
   <h1>Scavenger Hunt!</h1>
 </div>
 
-<p>Task 2:</p>
-<p>Walk 20 Meter forward:</p>
+<p>Task 3:</p>
+<p>Scan the QR Code in the ÜK room KR-4!</p>
 
 <ion-checkbox labelPlacement="start" [checked]="isCompleted" [disabled]="true"
               [ngClass]="{'completed-checkbox': isCompleted, 'not-completed-checkbox': !isCompleted}">
@@ -12,14 +12,17 @@
 
 <ion-item-divider></ion-item-divider>
 
+<ion-button (click)="startScan()" class="scan-button">
+  Scan QR Code
+</ion-button>
+
 <ion-button class="start-btn" [disabled]="!isCompleted"
             [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
-            (click)="navigateToTask3()"
+            (click)="navigateToTask4()"
 >
   Continue
 </ion-button>
 
-<ion-button [disabled]="false" class="cancel-button"
-            (click)="backToStart()">
+<ion-button [disabled]="false" class="cancel-button">
   Cancel
 </ion-button>

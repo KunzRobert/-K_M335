@@ -78,9 +78,9 @@ export class Task2Page implements OnInit, OnDestroy {
     console.error('Error getting location', error);
   }
 
-  navigateToTask4() {
+  navigateToTask3() {
     if (this.isCompleted) {
-      this.router.navigate(['task-4']).then(() => {});
+      this.router.navigate(['task-3']).then(() => {});
     }
   }
 
