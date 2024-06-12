@@ -10,9 +10,9 @@ import {
     IonTitle,
     IonToolbar
 } from '@ionic/angular/standalone';
-import {BarcodeScanner} from '@capacitor-community/barcode-scanner';
 import {Router} from "@angular/router";
 import {ScoreboardService} from "../scoreboard-service.service";
+import {CapacitorBarcodeScanner} from "@capacitor/barcode-scanner";
 
 @Component({
   selector: 'app-task-3',
@@ -24,30 +24,22 @@ import {ScoreboardService} from "../scoreboard-service.service";
 export class Task3Page {
 
   isCompleted = false;
+  readonly QRCODECONTENT = "M335@ICT-BZ"
 
   constructor(private router: Router, private scoreboardService: ScoreboardService ) { }
 
   async startScan() {
     try {
-      await BarcodeScanner.hideBackground();
-      document.body.classList.add('scanner-active');
+      const barcode = await CapacitorBarcodeScanner.scanBarcode({ hint: 0 });
 
-      const result = await BarcodeScanner.startScan();
-
-      if (result.hasContent) {
-        if (result.content === 'M335@ICT-BZ') {
-          this.isCompleted = true;
-        } else {
-          alert('Incorrect QR code');
-        }
+      if (barcode.ScanResult === this.QRCODECONTENT) {
+        this.isCompleted = true;
+      } else {
+        alert("Wrong QR Code")
       }
-    } catch (error) {
-      console.error('Scan failed:', error);
-      alert('Scan failed. Please try again.');
-    } finally {
-      await BarcodeScanner.showBackground();
-      document.body.classList.remove('scanner-active');
-      await BarcodeScanner.stopScan();
+    } catch (err) {
+      console.error('Error scanning barcode:', err);
+      alert("Error scanning QR Code");
     }
   }
 
