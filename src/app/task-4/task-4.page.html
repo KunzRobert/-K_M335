@@ -2,8 +2,8 @@
   <h1>Scavenger Hunt!</h1>
 </div>
 
-<p>Task 2:</p>
-<p>Walk 20 Meter forward:</p>
+<p>Task 4:</p>
+<p>Turn your phone upside down!</p>
 
 <ion-checkbox labelPlacement="start" [checked]="isCompleted" [disabled]="true"
               [ngClass]="{'completed-checkbox': isCompleted, 'not-completed-checkbox': !isCompleted}">
@@ -13,9 +13,7 @@
 <ion-item-divider></ion-item-divider>
 
 <ion-button class="start-btn" [disabled]="!isCompleted"
-            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
-            (click)="navigateToTask4()"
->
+            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}">
   Continue
 </ion-button>
 

@@ -12,6 +12,7 @@ import {
 } from '@ionic/angular/standalone';
 import { haversineDistance } from "../geolocation.utils";
 import {Geolocation, Position, PositionOptions} from "@capacitor/geolocation";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-2',
@@ -28,7 +29,7 @@ export class Task2Page implements OnInit, OnDestroy {
 
   readonly DISTANCE_THRESHOLD = 20; // 20 meters
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   async ngOnInit() {
     const options: PositionOptions = {
@@ -80,4 +81,9 @@ export class Task2Page implements OnInit, OnDestroy {
     console.error('Error getting location', error);
   }
 
+  navigateToTask4() {
+    if (this.isCompleted) {
+      this.router.navigate(['task-4']).then(() => {});
+    }
+  }
 }

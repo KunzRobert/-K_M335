@@ -22,4 +22,8 @@ export const routes: Routes = [
     path: 'task-2',
     loadComponent: () => import('./task-2/task-2.page').then( m => m.Task2Page)
   },
+  {
+    path: 'task-4',
+    loadComponent: () => import('./task-4/task-4.page').then( m => m.Task4Page)
+  },
 ];
