@@ -11,6 +11,7 @@ import {
   IonToolbar
 } from '@ionic/angular/standalone';
 import {Router} from "@angular/router";
+import {ScoreboardService} from "../scoreboard-service.service";
 
 @Component({
   selector: 'app-start-hunt',
@@ -24,7 +25,7 @@ export class StartHuntPage implements OnInit {
   userName: string = '';
   isCompleted = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private scoreboardService: ScoreboardService) { }
 
   ngOnInit() {
     setInterval(() => {
@@ -38,6 +39,8 @@ export class StartHuntPage implements OnInit {
 
   navigateToTask1() {
     if (this.isCompleted) {
+      this.scoreboardService.startTimer();
+      this.scoreboardService.setUserName(this.userName);
       this.router.navigate(['task-1']).then(r => {});
     }
   }

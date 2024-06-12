@@ -34,7 +34,7 @@ export class Task1Page {
     latitude: 47.071945403994924,
     longitude: 8.348885173299777,
   };
-  readonly DISTANCE_THRESHOLD = 5;
+  readonly DISTANCE_THRESHOLD = 50;
 
   constructor(private router: Router) {
   }
@@ -58,5 +58,10 @@ export class Task1Page {
     if (this.isCompleted) {
       this.router.navigate(['task-2']).then(() => {});
     }
+  }
+
+  backToStart() {
+    this.router.navigate(['start-hunt']).then(r => {
+    });
   }
 }

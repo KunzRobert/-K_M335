@@ -25,5 +25,9 @@ export const routes: Routes = [
   {
     path: 'task-4',
     loadComponent: () => import('./task-4/task-4.page').then( m => m.Task4Page)
+  },  {
+    path: 'scoreboard',
+    loadComponent: () => import('./scoreboard/scoreboard.page').then( m => m.ScoreboardPage)
   },
+
 ];

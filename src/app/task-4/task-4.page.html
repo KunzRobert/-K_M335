@@ -13,10 +13,12 @@
 <ion-item-divider></ion-item-divider>
 
 <ion-button class="start-btn" [disabled]="!isCompleted"
-            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}">
+            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
+            (click)="navigateToScoreboard()">
   Continue
 </ion-button>
 
-<ion-button [disabled]="false" class="cancel-button">
+<ion-button [disabled]="false" class="cancel-button"
+            (click)="backToStart()">
   Cancel
 </ion-button>
