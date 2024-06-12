@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
@@ -25,7 +25,7 @@ import {Router} from "@angular/router";
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonInput, IonCheckbox, IonItemDivider, IonButton]
 })
 
-export class Task1Page {
+export class Task1Page implements OnInit, OnDestroy {
 
   isCompleted = false;
   distanceToTarget: number | null = null;
@@ -34,27 +34,59 @@ export class Task1Page {
     latitude: 47.071945403994924,
     longitude: 8.348885173299777,
   };
-  readonly DISTANCE_THRESHOLD = 50;
+  readonly DISTANCE_THRESHOLD = 30;
 
-  constructor(private router: Router) {
+  watchId: string | null = null;
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.startWatchingPosition().then();
   }
 
-  async getCurrentPosition() {
+  ngOnDestroy() {
+    this.stopWatchingPosition();
+  }
+
+  async startWatchingPosition() {
     try {
-      const coordinates = await Geolocation.getCurrentPosition();
+      this.watchId = await Geolocation.watchPosition(
+        {
+          enableHighAccuracy: true,
+          timeout: 2000,
+          maximumAge: 0
+        },
+        (position, err) => {
+          if (err) {
+            console.error('Error watching position:', err);
+            return;
+          }
 
-      const currentCoords = {
-        latitude: coordinates.coords.latitude,
-        longitude: coordinates.coords.longitude,
-      };
+          if (position) {
+            const currentCoords = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            };
 
-      const distance = haversineDistance(currentCoords, this.TARGET_COORDS);
+            const distance = haversineDistance(currentCoords, this.TARGET_COORDS);
 
-      this.distanceToTarget = distance;
+            this.distanceToTarget = distance;
 
-      this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
+            this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
+
+            console.log(this.distanceToTarget);
+          }
+        }
+      );
     } catch (error) {
-      console.error('Error getting current position:', error);
+      console.error('Error starting position watch:', error);
+    }
+  }
+
+  stopWatchingPosition() {
+    if (this.watchId) {
+      Geolocation.clearWatch({id: this.watchId}).then();
+      this.watchId = null;
     }
   }
 
@@ -65,7 +97,6 @@ export class Task1Page {
   }
 
   backToStart() {
-    this.router.navigate(['start-hunt']).then(r => {
-    });
+    this.router.navigate(['start-hunt']).then();
   }
 }
