@@ -34,29 +34,38 @@ export class Task1Page {
     latitude: 47.071945403994924,
     longitude: 8.348885173299777,
   };
-  readonly DISTANCE_THRESHOLD = 5;
+  readonly DISTANCE_THRESHOLD = 50;
 
   constructor(private router: Router) {
   }
 
   async getCurrentPosition() {
-    const coordinates = await Geolocation.getCurrentPosition();
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
 
-    const currentCoords = {
-      latitude: coordinates.coords.latitude,
-      longitude: coordinates.coords.longitude,
-    };
+      const currentCoords = {
+        latitude: coordinates.coords.latitude,
+        longitude: coordinates.coords.longitude,
+      };
 
-    const distance = haversineDistance(currentCoords, this.TARGET_COORDS);
+      const distance = haversineDistance(currentCoords, this.TARGET_COORDS);
 
-    this.distanceToTarget = distance;
+      this.distanceToTarget = distance;
 
-    this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
+      this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
+    } catch (error) {
+      console.error('Error getting current position:', error);
+    }
   }
 
   navigateToTask2() {
     if (this.isCompleted) {
       this.router.navigate(['task-2']).then(() => {});
     }
+  }
+
+  backToStart() {
+    this.router.navigate(['start-hunt']).then(r => {
+    });
   }
 }

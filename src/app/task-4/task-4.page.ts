@@ -12,6 +12,8 @@ import {
 } from '@ionic/angular/standalone';
 
 import { Motion } from '@capacitor/motion';
+import {Router} from "@angular/router";
+import {ScoreboardService} from "../scoreboard-service.service";
 
 @Component({
   selector: 'app-task-4',
@@ -24,7 +26,7 @@ export class Task4Page implements OnInit {
 
   isCompleted: boolean = false;
 
-  constructor() {}
+  constructor(private router: Router, private scoreboardService: ScoreboardService) {}
 
   ngOnInit() {
     Motion.addListener('accel', (event) => {
@@ -43,4 +45,17 @@ export class Task4Page implements OnInit {
   isUpsideDown(x: number, y: number, z: number): boolean {
     return y < -9;
   }
+
+  navigateToScoreboard() {
+    this.scoreboardService.stopTimer();
+    this.scoreboardService.addRun(this.scoreboardService.getUserName());
+    this.router.navigate(['scoreboard']).then(r => {
+    });
+  }
+
+  backToStart() {
+    this.router.navigate(['start-hunt']).then(r => {
+    });
+  }
+
 }

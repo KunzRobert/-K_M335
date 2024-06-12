@@ -14,11 +14,12 @@
 
 <ion-button class="start-btn" [disabled]="!isCompleted"
             [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
-            (click)="navigateToTask4()"
+            (click)="navigateToTask3()"
 >
   Continue
 </ion-button>
 
-<ion-button [disabled]="false" class="cancel-button">
+<ion-button [disabled]="false" class="cancel-button"
+            (click)="backToStart()">
   Cancel
 </ion-button>

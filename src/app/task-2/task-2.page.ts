@@ -23,11 +23,11 @@ import {Router} from "@angular/router";
 })
 export class Task2Page implements OnInit, OnDestroy {
 
-  isCompleted = false;
+  isCompleted = true;
   startCoords: { latitude: number; longitude: number } | null = null;
   watchId: string | null = null;
 
-  readonly DISTANCE_THRESHOLD = 20; // 20 meters
+  readonly DISTANCE_THRESHOLD = 20;
 
   constructor(private router: Router) { }
 
@@ -54,8 +54,6 @@ export class Task2Page implements OnInit, OnDestroy {
   }
 
   positionCallback(position: Position) {
-    console.log('Current coordinates:', position);
-    console.log('Accuracy:', position.coords.accuracy); // Log accuracy
 
     const currentCoords = {
       latitude: position.coords.latitude,
@@ -67,7 +65,6 @@ export class Task2Page implements OnInit, OnDestroy {
     }
 
     const distance = haversineDistance(this.startCoords, currentCoords);
-    console.log('Distance walked:', distance, 'meters');
 
     if (distance >= this.DISTANCE_THRESHOLD) {
       this.isCompleted = true;
@@ -81,9 +78,14 @@ export class Task2Page implements OnInit, OnDestroy {
     console.error('Error getting location', error);
   }
 
-  navigateToTask4() {
+  navigateToTask3() {
     if (this.isCompleted) {
-      this.router.navigate(['task-4']).then(() => {});
+      this.router.navigate(['task-3']).then(() => {});
     }
+  }
+
+  backToStart() {
+    this.router.navigate(['start-hunt']).then(r => {
+    });
   }
 }

@@ -1,0 +1,22 @@
+<div>
+  <h1>
+    Scoreboard:
+  </h1>
+</div>
+<ion-list>
+  <ion-item *ngFor="let run of topRuns; let i = index">
+    {{i + 1}}. {{run.name}}: {{run.time.toFixed(2)}} seconds
+  </ion-item>
+</ion-list>
+
+<ion-item-divider></ion-item-divider>
+
+<ion-button class="start-btn"
+            (click)="navigateToStart()">
+  Back to the Start
+</ion-button>
+
+<ion-button [disabled]="false" class="start-btn"
+            (click)="navigateToHome()">
+  Home
+</ion-button>
