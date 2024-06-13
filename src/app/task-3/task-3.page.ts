@@ -13,7 +13,7 @@ import {
 import { Router } from '@angular/router';
 import { ScoreboardService } from '../scoreboard-service.service';
 import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
-import {Haptics, ImpactStyle} from "@capacitor/haptics";
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
   selector: 'app-task-3',
@@ -37,10 +37,9 @@ export class Task3Page implements OnInit {
   readonly QRCODECONTENT = 'M335@ICT-BZ';
   private scoreboardService = inject(ScoreboardService);
   startTime: number = 0;
+  private pointSet = false;
 
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.startTime = Date.now();
@@ -52,8 +51,11 @@ export class Task3Page implements OnInit {
 
       if (barcode.ScanResult === this.QRCODECONTENT) {
         this.isCompleted = true;
-        this.vibratePhone()
-        this.scoreboardService.checkTimeAndGivePoints(this.startTime, 50);
+        this.vibratePhone();
+        if (!this.pointSet) {
+          this.pointSet = true;
+          this.scoreboardService.checkTimeAndGivePoints(this.startTime, 50);
+        }
       } else {
         alert('Wrong QR Code');
       }

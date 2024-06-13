@@ -8,16 +8,16 @@
       <ion-col><strong>Name</strong></ion-col>
       <ion-col><strong>Date</strong></ion-col>
       <ion-col><strong>Schnitzel</strong></ion-col>
-      <ion-col><strong>Potatoes</strong></ion-col>
+      <ion-col><strong>Potatoe</strong></ion-col>
     </ion-row>
 
     @for(run of runs; track run.name){
-      <ion-row class="divider-row">
-        <ion-col>Name: {{run.name}}</ion-col>
-        <ion-col>Date: {{run.date}}</ion-col>
-        <ion-col>Schnitzel: {{run.countSchnitzel}}</ion-col>
-        <ion-col>Potatoes: {{run.countKartoffel}}</ion-col>
-      </ion-row>
+    <ion-row class="divider-row">
+      <ion-col>{{run.name}}</ion-col>
+      <ion-col>{{run.date}}</ion-col>
+      <ion-col>{{run.countSchnitzel}}</ion-col>
+      <ion-col>{{run.countKartoffel}}</ion-col>
+    </ion-row>
     }
   </ion-grid>
 </ion-card-content>
@@ -32,6 +32,4 @@
   Home
 </ion-button>
 
-<ion-button (click)="clearScoreboard()">
-  clear scoreboard
-</ion-button>
+<ion-button (click)="clearScoreboard()"> clear scoreboard </ion-button>
