@@ -4,14 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ScoreboardService } from '../scoreboard-service.service';
 import {
-  IonButton, IonCardContent,
-  IonCheckbox, IonCol,
-  IonContent, IonGrid,
+  IonButton,
+  IonCardContent,
+  IonCheckbox,
+  IonCol,
+  IonContent,
+  IonGrid,
   IonHeader,
   IonInput,
   IonItem,
   IonItemDivider,
-  IonList, IonRow,
+  IonList,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
@@ -61,12 +65,12 @@ export class ScoreboardPage implements OnInit {
     this.router.navigate(['home']).then();
   }
 
-  getHunts(){
+  getHunts() {
     const hunts = JSON.parse(localStorage.getItem('hunts') || '[]');
     this.runs = hunts.reverse().slice(0, 15);
   }
 
-  clearScoreboard(){
+  clearScoreboard() {
     localStorage.removeItem('hunts');
     this.runs = [];
   }

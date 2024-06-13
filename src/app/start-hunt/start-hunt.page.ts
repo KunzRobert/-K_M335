@@ -48,7 +48,7 @@ export class StartHuntPage implements OnInit {
       this.checkCompletion();
     }, 100);
 
-    this.userName = ""
+    this.userName = '';
   }
 
   checkCompletion() {
@@ -57,7 +57,7 @@ export class StartHuntPage implements OnInit {
 
   navigateToTask1() {
     if (this.isCompleted) {
-      this.scoreboardService.initHunt()
+      this.scoreboardService.initHunt();
       this.router.navigate(['task-1']).then();
     }
   }

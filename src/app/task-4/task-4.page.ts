@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -38,9 +38,7 @@ export class Task4Page implements OnInit {
   private scoreboardService = inject(ScoreboardService);
   startTime: number = 0;
 
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.startTime = Date.now();
