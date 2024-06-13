@@ -2,30 +2,46 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonButton, IonCheckbox,
+  IonButton,
+  IonCheckbox,
   IonContent,
-  IonHeader, IonInput,
+  IonHeader,
+  IonInput,
   IonItem,
   IonItemDivider,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from '@ionic/angular/standalone';
-import {Router} from "@angular/router";
-import {ScoreboardService} from "../scoreboard-service.service";
+import { Router } from '@angular/router';
+import { ScoreboardService } from '../scoreboard-service.service';
 
 @Component({
   selector: 'app-start-hunt',
   templateUrl: './start-hunt.page.html',
   styleUrls: ['./start-hunt.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonItemDivider, IonItem, IonInput, IonCheckbox]
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonButton,
+    IonItemDivider,
+    IonItem,
+    IonInput,
+    IonCheckbox,
+  ],
 })
 export class StartHuntPage implements OnInit {
-
   userName: string = '';
   isCompleted = false;
 
-  constructor(private router: Router, private scoreboardService: ScoreboardService) { }
+  constructor(
+    private router: Router,
+    private scoreboardService: ScoreboardService
+  ) {}
 
   ngOnInit() {
     setInterval(() => {
@@ -41,7 +57,7 @@ export class StartHuntPage implements OnInit {
     if (this.isCompleted) {
       this.scoreboardService.startTimer();
       this.scoreboardService.setUserName(this.userName);
-      this.router.navigate(['task-1']).then(r => {});
+      this.router.navigate(['task-1']).then();
     }
   }
 }

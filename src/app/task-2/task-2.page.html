@@ -5,21 +5,26 @@
 <p>Task 2:</p>
 <p>Walk 10 Meter forward:</p>
 
-<ion-checkbox labelPlacement="start" [checked]="isCompleted" [disabled]="true"
-              [ngClass]="{'completed-checkbox': isCompleted, 'not-completed-checkbox': !isCompleted}">
+<ion-checkbox
+  labelPlacement="start"
+  [checked]="isCompleted"
+  [disabled]="true"
+  [ngClass]="{'completed-checkbox': isCompleted, 'not-completed-checkbox': !isCompleted}"
+>
   You have completed this task
 </ion-checkbox>
 
 <ion-item-divider></ion-item-divider>
 
-<ion-button class="start-btn" [disabled]="!isCompleted"
-            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
-            (click)="navigateToTask3()"
+<ion-button
+  class="start-btn"
+  [disabled]="!isCompleted"
+  [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
+  (click)="navigateToTask3()"
 >
   Continue
 </ion-button>
 
-<ion-button [disabled]="false" class="cancel-button"
-            (click)="backToStart()">
+<ion-button [disabled]="false" class="cancel-button" (click)="backToStart()">
   Cancel
 </ion-button>

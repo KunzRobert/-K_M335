@@ -7,25 +7,29 @@
 <p>Latitude: 47.0764261, Longitude: 8.3452189</p>
 
 @if (distanceToTarget !== null) {
-  <p>
-    Distance to target: {{ distanceToTarget | number: '1.2-2' }} meters
-  </p>
+<p>Distance to target: {{ distanceToTarget | number: '1.2-2' }} meters</p>
 }
 
-<ion-checkbox labelPlacement="start" [checked]="isCompleted" [disabled]="true"
-              [ngClass]="{'completed-checkbox': isCompleted, 'not-completed-checkbox': !isCompleted}">
+<ion-checkbox
+  labelPlacement="start"
+  [checked]="isCompleted"
+  [disabled]="true"
+  [ngClass]="{'completed-checkbox': isCompleted, 'not-completed-checkbox': !isCompleted}"
+>
   You have completed this task
 </ion-checkbox>
 
 <ion-item-divider></ion-item-divider>
 
-<ion-button class="start-btn" [disabled]="!isCompleted"
-            [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
-            (click)="navigateToTask2()">
+<ion-button
+  class="start-btn"
+  [disabled]="!isCompleted"
+  [ngClass]="{'start-btn': isCompleted, 'start-btn-disabled': !isCompleted}"
+  (click)="navigateToTask2()"
+>
   Continue
 </ion-button>
 
-<ion-button [disabled]="false" class="cancel-button"
-            (click)="backToStart()">
+<ion-button [disabled]="false" class="cancel-button" (click)="backToStart()">
   Cancel
 </ion-button>

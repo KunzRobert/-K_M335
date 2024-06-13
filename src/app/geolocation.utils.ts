@@ -1,6 +1,6 @@
 export function haversineDistance(
   coords1: { latitude: number; longitude: number },
-  coords2: { latitude: number; longitude: number },
+  coords2: { latitude: number; longitude: number }
 ) {
   const R = 6371e3; // Earth's radius in meters
   const lat1Rad = coords1.latitude * (Math.PI / 180);

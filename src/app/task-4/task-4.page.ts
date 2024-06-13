@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   IonButton,
   IonCheckbox,
@@ -8,31 +8,42 @@ import {
   IonHeader,
   IonItemDivider,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from '@ionic/angular/standalone';
 
-import {Motion} from '@capacitor/motion';
-import {Haptics, ImpactStyle} from '@capacitor/haptics';
-import {Router} from "@angular/router";
-import {ScoreboardService} from "../scoreboard-service.service";
+import { Motion } from '@capacitor/motion';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import { Router } from '@angular/router';
+import { ScoreboardService } from '../scoreboard-service.service';
 
 @Component({
   selector: 'app-task-4',
   templateUrl: './task-4.page.html',
   styleUrls: ['./task-4.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonCheckbox, IonItemDivider]
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonButton,
+    IonCheckbox,
+    IonItemDivider,
+  ],
 })
 export class Task4Page implements OnInit {
-
   isCompleted: boolean = false;
 
-  constructor(private router: Router, private scoreboardService: ScoreboardService) {
-  }
+  constructor(
+    private router: Router,
+    private scoreboardService: ScoreboardService
+  ) {}
 
   ngOnInit() {
-    Motion.addListener('accel', (event) => {
-      const {x, y} = event.accelerationIncludingGravity;
+    Motion.addListener('accel', event => {
+      const { x, y } = event.accelerationIncludingGravity;
 
       if (this.isUpsideDown(x, y) && !this.isCompleted) {
         this.isCompleted = true;
@@ -47,7 +58,7 @@ export class Task4Page implements OnInit {
   }
 
   vibratePhone() {
-    Haptics.impact({style: ImpactStyle.Heavy}).then();
+    Haptics.impact({ style: ImpactStyle.Heavy }).then();
   }
 
   navigateToScoreboard() {
@@ -59,5 +70,4 @@ export class Task4Page implements OnInit {
   backToStart() {
     this.router.navigate(['start-hunt']).then();
   }
-
 }
