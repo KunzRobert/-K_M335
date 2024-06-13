@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -16,6 +16,7 @@ import {
 import { Geolocation } from '@capacitor/geolocation';
 import { haversineDistance } from '../geolocation.utils';
 import { Router } from '@angular/router';
+import { ScoreboardService } from '../scoreboard-service.service';
 
 @Component({
   selector: 'app-task-1',
@@ -47,11 +48,14 @@ export class Task1Page implements OnInit, OnDestroy {
   readonly DISTANCE_THRESHOLD = 30;
 
   watchId: string | null = null;
+  private scoreboardService = inject(ScoreboardService);
+  startTime: number = 0;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
     this.startWatchingPosition().then();
+    this.startTime = Date.now();
   }
 
   ngOnDestroy() {
@@ -86,6 +90,10 @@ export class Task1Page implements OnInit, OnDestroy {
             this.distanceToTarget = distance;
 
             this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
+
+            if(this.isCompleted) {
+              this.scoreboardService.checkTimeAndGivePoints(this.startTime, 120);
+            }
 
             console.log(this.distanceToTarget);
           }

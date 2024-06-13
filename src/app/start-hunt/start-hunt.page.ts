@@ -47,6 +47,8 @@ export class StartHuntPage implements OnInit {
     setInterval(() => {
       this.checkCompletion();
     }, 100);
+
+    this.userName = ""
   }
 
   checkCompletion() {
@@ -55,8 +57,7 @@ export class StartHuntPage implements OnInit {
 
   navigateToTask1() {
     if (this.isCompleted) {
-      this.scoreboardService.startTimer();
-      this.scoreboardService.setUserName(this.userName);
+      this.scoreboardService.initHunt()
       this.router.navigate(['task-1']).then();
     }
   }
