@@ -52,7 +52,6 @@ export class Task4Page implements OnInit {
         this.isCompleted = true;
         this.scoreboardService.checkTimeAndGivePoints(this.startTime, 10);
         this.vibratePhone();
-        console.log('The phone is upside down, isCompleted set to true');
       }
     }).then();
   }

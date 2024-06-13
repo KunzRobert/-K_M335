@@ -15,6 +15,7 @@ import { haversineDistance } from '../geolocation.utils';
 import { Geolocation, Position, PositionOptions } from '@capacitor/geolocation';
 import { Router } from '@angular/router';
 import { ScoreboardService } from '../scoreboard-service.service';
+import {Haptics, ImpactStyle} from "@capacitor/haptics";
 
 @Component({
   selector: 'app-task-2',
@@ -83,6 +84,7 @@ export class Task2Page implements OnInit, OnDestroy {
     if (distance >= this.DISTANCE_THRESHOLD) {
       this.isCompleted = true;
       this.scoreboardService.checkTimeAndGivePoints(this.startTime, 30);
+      this.vibratePhone()
       if (this.watchId) {
         Geolocation.clearWatch({ id: this.watchId }).then(() => {});
       }
@@ -101,5 +103,9 @@ export class Task2Page implements OnInit, OnDestroy {
 
   backToStart() {
     this.router.navigate(['start-hunt']).then();
+  }
+
+  vibratePhone() {
+    Haptics.impact({ style: ImpactStyle.Heavy }).then();
   }
 }

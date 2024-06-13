@@ -17,6 +17,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { haversineDistance } from '../geolocation.utils';
 import { Router } from '@angular/router';
 import { ScoreboardService } from '../scoreboard-service.service';
+import {Haptics, ImpactStyle} from "@capacitor/haptics";
 
 @Component({
   selector: 'app-task-1',
@@ -92,10 +93,10 @@ export class Task1Page implements OnInit, OnDestroy {
             this.isCompleted = distance <= this.DISTANCE_THRESHOLD;
 
             if(this.isCompleted) {
+              this.vibratePhone()
               this.scoreboardService.checkTimeAndGivePoints(this.startTime, 120);
             }
 
-            console.log(this.distanceToTarget);
           }
         }
       );
@@ -119,5 +120,9 @@ export class Task1Page implements OnInit, OnDestroy {
 
   backToStart() {
     this.router.navigate(['start-hunt']).then();
+  }
+
+  vibratePhone() {
+    Haptics.impact({ style: ImpactStyle.Heavy }).then();
   }
 }

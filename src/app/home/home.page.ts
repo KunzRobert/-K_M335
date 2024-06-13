@@ -77,4 +77,8 @@ export class HomePage {
       this.router.navigate(['start-hunt']).then();
     }
   }
+
+  navigateToScoreboard() {
+    this.router.navigate(['scoreboard']).then();
+  }
 }

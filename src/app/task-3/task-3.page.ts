@@ -13,6 +13,7 @@ import {
 import { Router } from '@angular/router';
 import { ScoreboardService } from '../scoreboard-service.service';
 import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
+import {Haptics, ImpactStyle} from "@capacitor/haptics";
 
 @Component({
   selector: 'app-task-3',
@@ -51,6 +52,7 @@ export class Task3Page implements OnInit {
 
       if (barcode.ScanResult === this.QRCODECONTENT) {
         this.isCompleted = true;
+        this.vibratePhone()
         this.scoreboardService.checkTimeAndGivePoints(this.startTime, 50);
       } else {
         alert('Wrong QR Code');
@@ -71,5 +73,9 @@ export class Task3Page implements OnInit {
 
   backToStart() {
     this.router.navigate(['start-hunt']).then(() => {});
+  }
+
+  vibratePhone() {
+    Haptics.impact({ style: ImpactStyle.Heavy }).then();
   }
 }
