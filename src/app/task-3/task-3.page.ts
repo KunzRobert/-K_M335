@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -13,6 +13,7 @@ import {
 import { Router } from '@angular/router';
 import { ScoreboardService } from '../scoreboard-service.service';
 import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
+import {Haptics, ImpactStyle} from "@capacitor/haptics";
 
 @Component({
   selector: 'app-task-3',
@@ -31,14 +32,19 @@ import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
     IonItemDivider,
   ],
 })
-export class Task3Page {
+export class Task3Page implements OnInit {
   isCompleted = false;
   readonly QRCODECONTENT = 'M335@ICT-BZ';
+  private scoreboardService = inject(ScoreboardService);
+  startTime: number = 0;
 
   constructor(
     private router: Router,
-    private scoreboardService: ScoreboardService
   ) {}
+
+  ngOnInit(): void {
+    this.startTime = Date.now();
+  }
 
   async startScan() {
     try {
@@ -46,6 +52,8 @@ export class Task3Page {
 
       if (barcode.ScanResult === this.QRCODECONTENT) {
         this.isCompleted = true;
+        this.vibratePhone()
+        this.scoreboardService.checkTimeAndGivePoints(this.startTime, 50);
       } else {
         alert('Wrong QR Code');
       }
@@ -57,8 +65,6 @@ export class Task3Page {
 
   navigateToTask4() {
     if (this.isCompleted) {
-      this.scoreboardService.stopTimer();
-      this.scoreboardService.addRun(this.scoreboardService.getUserName());
       this.router.navigate(['task-4']).then(() => {
         document.body.classList.remove('scanner-active');
       });
@@ -67,5 +73,9 @@ export class Task3Page {
 
   backToStart() {
     this.router.navigate(['start-hunt']).then(() => {});
+  }
+
+  vibratePhone() {
+    Haptics.impact({ style: ImpactStyle.Heavy }).then();
   }
 }

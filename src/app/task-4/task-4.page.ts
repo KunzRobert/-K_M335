@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -35,20 +35,23 @@ import { ScoreboardService } from '../scoreboard-service.service';
 })
 export class Task4Page implements OnInit {
   isCompleted: boolean = false;
+  private scoreboardService = inject(ScoreboardService);
+  startTime: number = 0;
 
   constructor(
     private router: Router,
-    private scoreboardService: ScoreboardService
   ) {}
 
   ngOnInit() {
+    this.startTime = Date.now();
+
     Motion.addListener('accel', event => {
       const { x, y } = event.accelerationIncludingGravity;
 
       if (this.isUpsideDown(x, y) && !this.isCompleted) {
         this.isCompleted = true;
+        this.scoreboardService.checkTimeAndGivePoints(this.startTime, 10);
         this.vibratePhone();
-        console.log('The phone is upside down, isCompleted set to true');
       }
     }).then();
   }
@@ -62,8 +65,6 @@ export class Task4Page implements OnInit {
   }
 
   navigateToScoreboard() {
-    this.scoreboardService.stopTimer();
-    this.scoreboardService.addRun(this.scoreboardService.getUserName());
     this.router.navigate(['scoreboard']).then();
   }
 

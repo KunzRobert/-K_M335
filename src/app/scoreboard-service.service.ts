@@ -1,52 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Preferences } from '@capacitor/preferences';
 @Injectable({
   providedIn: 'root',
 })
 export class ScoreboardService {
-  private startTime: number = 0;
-  private endTime: number = 0;
-  private userName: string = '';
-  private topRuns: { name: string; time: number }[] = [];
-
-  setUserName(userName: string) {
-    this.userName = userName;
+  initHunt(){
+    localStorage.setItem('schnitzelCount', '0');
+    localStorage.setItem('kartoffelCount', '0');
+    localStorage.setItem('startTime', Date.now().toString());
   }
 
-  getUserName() {
-    return this.userName;
-  }
+  checkTimeAndGivePoints(startTime: number, timeGivenForTask: number) {
+    const endTime = Date.now();
+    const duration = (endTime - startTime) / 1000;
 
-  startTimer() {
-    this.startTime = Date.now();
-  }
-
-  stopTimer() {
-    this.endTime = Date.now();
-  }
-
-  getElapsedTime() {
-    const elapsedTimeInMilliseconds = this.endTime - this.startTime;
-    const elapsedTimeInSeconds = elapsedTimeInMilliseconds / 1000;
-    return Number(elapsedTimeInSeconds.toFixed(2));
-  }
-
-  async addRun(name: string) {
-    const elapsedTime = this.getElapsedTime();
-    this.topRuns.push({ name, time: elapsedTime });
-    this.topRuns.sort((a, b) => a.time - b.time);
-    if (this.topRuns.length > 5) {
-      this.topRuns.pop();
+    if(duration <= timeGivenForTask) {
+      this.updateLocalStorage('schnitzelCount');
+    } else {
+      this.updateLocalStorage('kartoffelCount');
     }
-    await Preferences.set({
-      key: 'topRuns',
-      value: JSON.stringify(this.topRuns),
-    });
   }
 
-  async getTopRuns() {
-    const result = await Preferences.get({ key: 'topRuns' });
-    this.topRuns = result.value ? JSON.parse(result.value) : [];
-    return this.topRuns;
+  updateLocalStorage(key: string){
+    let value = localStorage.getItem(key);
+    let count = value ? parseInt(value, 10) : 0;
+    count += 1;
+    localStorage.setItem(key, count.toString());
+  }
+
+  saveHunt() {
+    const name = localStorage.getItem('name');
+    const countSchnitzel = localStorage.getItem('schnitzelCount');
+    const countKartoffel = localStorage.getItem('kartoffelCount');
+    const startTime = parseInt(localStorage.getItem('startTime') || '0');
+    const endTime = Date.now();
+    const duration = (endTime - startTime) / 1000;
+    const now = new Date();
+    const formattedDate = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
+
+
+    const hunt = {
+      name: name,
+      countSchnitzel: countSchnitzel,
+      countKartoffel: countKartoffel,
+      duration: duration,
+      date: formattedDate
+    };
+
+    let hunts = JSON.parse(localStorage.getItem('hunts') || '[]');
+    hunts.push(hunt);
+    localStorage.setItem('hunts', JSON.stringify(hunts));
   }
 }

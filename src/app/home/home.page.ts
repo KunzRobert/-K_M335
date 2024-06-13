@@ -58,12 +58,6 @@ export class HomePage {
     return this.hasCameraPermission;
   }
 
-  printCurrentPosition = async () => {
-    const coordinates = await Geolocation.getCurrentPosition();
-
-    console.log('Current position:', coordinates);
-  };
-
   async requestLocationPermission(): Promise<void> {
     Geolocation.requestPermissions({ permissions: ['location'] }).then(
       res => (this.hasLocationPermission = res.location === 'granted')
@@ -82,5 +76,9 @@ export class HomePage {
     if (this.hasPermissions()) {
       this.router.navigate(['start-hunt']).then();
     }
+  }
+
+  navigateToScoreboard() {
+    this.router.navigate(['scoreboard']).then();
   }
 }
