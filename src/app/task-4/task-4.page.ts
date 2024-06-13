@@ -12,6 +12,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import {Motion} from '@capacitor/motion';
+import {Haptics, ImpactStyle} from '@capacitor/haptics';
 import {Router} from "@angular/router";
 import {ScoreboardService} from "../scoreboard-service.service";
 
@@ -33,18 +34,20 @@ export class Task4Page implements OnInit {
     Motion.addListener('accel', (event) => {
       const {x, y} = event.accelerationIncludingGravity;
 
-      if (this.isUpsideDown(x, y)) {
+      if (this.isUpsideDown(x, y) && !this.isCompleted) {
         this.isCompleted = true;
+        this.vibratePhone();
         console.log('The phone is upside down, isCompleted set to true');
-      } else {
-        this.isCompleted = false;
-        console.log('The phone is not upside down, isCompleted set to false');
       }
     }).then();
   }
 
   isUpsideDown(x: number, y: number): boolean {
     return y < -9;
+  }
+
+  vibratePhone() {
+    Haptics.impact({style: ImpactStyle.Heavy}).then();
   }
 
   navigateToScoreboard() {
