@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScoreboardService {
   private startTime: number = 0;
   private endTime: number = 0;
-  private userName: string = "";
-  private topRuns: {name: string, time: number}[] = [];
+  private userName: string = '';
+  private topRuns: { name: string; time: number }[] = [];
 
   setUserName(userName: string) {
     this.userName = userName;
@@ -33,14 +33,14 @@ export class ScoreboardService {
 
   async addRun(name: string) {
     const elapsedTime = this.getElapsedTime();
-    this.topRuns.push({name, time: elapsedTime});
+    this.topRuns.push({ name, time: elapsedTime });
     this.topRuns.sort((a, b) => a.time - b.time);
     if (this.topRuns.length > 5) {
       this.topRuns.pop();
     }
     await Preferences.set({
       key: 'topRuns',
-      value: JSON.stringify(this.topRuns)
+      value: JSON.stringify(this.topRuns),
     });
   }
 

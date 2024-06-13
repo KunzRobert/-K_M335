@@ -1,6 +1,6 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   IonButton,
   IonCheckbox,
@@ -10,23 +10,33 @@ import {
   IonItem,
   IonItemDivider,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from '@ionic/angular/standalone';
 
-import {Geolocation} from "@capacitor/geolocation";
-import {haversineDistance} from "../geolocation.utils";
-import {Router} from "@angular/router";
+import { Geolocation } from '@capacitor/geolocation';
+import { haversineDistance } from '../geolocation.utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-1',
   templateUrl: './task-1.page.html',
   styleUrls: ['./task-1.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonInput, IonCheckbox, IonItemDivider, IonButton]
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonItem,
+    IonInput,
+    IonCheckbox,
+    IonItemDivider,
+    IonButton,
+  ],
 })
-
 export class Task1Page implements OnInit, OnDestroy {
-
   isCompleted = false;
   distanceToTarget: number | null = null;
 
@@ -54,7 +64,7 @@ export class Task1Page implements OnInit, OnDestroy {
         {
           enableHighAccuracy: true,
           timeout: 2000,
-          maximumAge: 0
+          maximumAge: 0,
         },
         (position, err) => {
           if (err) {
@@ -68,7 +78,10 @@ export class Task1Page implements OnInit, OnDestroy {
               longitude: position.coords.longitude,
             };
 
-            const distance = haversineDistance(currentCoords, this.TARGET_COORDS);
+            const distance = haversineDistance(
+              currentCoords,
+              this.TARGET_COORDS
+            );
 
             this.distanceToTarget = distance;
 
@@ -85,7 +98,7 @@ export class Task1Page implements OnInit, OnDestroy {
 
   stopWatchingPosition() {
     if (this.watchId) {
-      Geolocation.clearWatch({id: this.watchId}).then();
+      Geolocation.clearWatch({ id: this.watchId }).then();
       this.watchId = null;
     }
   }

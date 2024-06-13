@@ -1,0 +1,17 @@
+# Ignore artifacts:
+build
+coverage
+node_modules
+
+# Ignore all HTML files in the root directory
+/*.html
+
+# Ignore minified files
+*.min.css
+
+# Ignore specific files
+src/assets
+src/environments/*.ts
+
+# Ignore all files in the public directory
+public

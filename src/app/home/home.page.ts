@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import {
   IonButton,
   IonContent,
@@ -6,40 +6,52 @@ import {
   IonIcon,
   IonItemDivider,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from '@ionic/angular/standalone';
-import {addIcons} from "ionicons";
-import {cameraOutline, locationOutline} from "ionicons/icons";
-import {Camera} from '@capacitor/camera';
-import {AsyncPipe, NgClass} from "@angular/common";
+import { addIcons } from 'ionicons';
+import { cameraOutline, locationOutline } from 'ionicons/icons';
+import { Camera } from '@capacitor/camera';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Geolocation } from '@capacitor/geolocation';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonItemDivider, AsyncPipe, NgClass],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonIcon,
+    IonItemDivider,
+    AsyncPipe,
+    NgClass,
+  ],
 })
 export class HomePage {
-
   hasCameraPermission = false;
   hasLocationPermission = false;
 
   constructor(private router: Router) {
-    addIcons({cameraOutline, locationOutline})
+    addIcons({ cameraOutline, locationOutline });
 
-    Camera.checkPermissions()
-      .then(c => this.hasCameraPermission = c.camera === 'granted');
+    Camera.checkPermissions().then(
+      c => (this.hasCameraPermission = c.camera === 'granted')
+    );
 
-    Geolocation.checkPermissions()
-      .then(c => this.hasLocationPermission = c.location === 'granted')
+    Geolocation.checkPermissions().then(
+      c => (this.hasLocationPermission = c.location === 'granted')
+    );
   }
 
   async requestCameraPermission(): Promise<void> {
-    Camera.requestPermissions({permissions: ['camera']})
-      .then(res => this.hasCameraPermission = res.camera === 'granted')
+    Camera.requestPermissions({ permissions: ['camera'] }).then(
+      res => (this.hasCameraPermission = res.camera === 'granted')
+    );
   }
 
   hasCameraAccess(): boolean {
@@ -53,8 +65,9 @@ export class HomePage {
   };
 
   async requestLocationPermission(): Promise<void> {
-    Geolocation.requestPermissions({permissions: ['location']})
-      .then(res => this.hasLocationPermission = res.location === 'granted')
+    Geolocation.requestPermissions({ permissions: ['location'] }).then(
+      res => (this.hasLocationPermission = res.location === 'granted')
+    );
   }
 
   hasLocationAccess(): boolean {
@@ -67,7 +80,7 @@ export class HomePage {
 
   navigateToStartHunt() {
     if (this.hasPermissions()) {
-      this.router.navigate(['start-hunt']).then(r => {});
+      this.router.navigate(['start-hunt']).then();
     }
   }
 }

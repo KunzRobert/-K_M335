@@ -2,31 +2,43 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-    IonButton,
-    IonCheckbox,
-    IonContent,
-    IonHeader,
-    IonItemDivider,
-    IonTitle,
-    IonToolbar
+  IonButton,
+  IonCheckbox,
+  IonContent,
+  IonHeader,
+  IonItemDivider,
+  IonTitle,
+  IonToolbar,
 } from '@ionic/angular/standalone';
-import {Router} from "@angular/router";
-import {ScoreboardService} from "../scoreboard-service.service";
-import {CapacitorBarcodeScanner} from "@capacitor/barcode-scanner";
+import { Router } from '@angular/router';
+import { ScoreboardService } from '../scoreboard-service.service';
+import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
 
 @Component({
   selector: 'app-task-3',
   templateUrl: './task-3.page.html',
   styleUrls: ['./task-3.page.scss'],
   standalone: true,
-    imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonCheckbox, IonItemDivider]
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonButton,
+    IonCheckbox,
+    IonItemDivider,
+  ],
 })
 export class Task3Page {
-
   isCompleted = false;
-  readonly QRCODECONTENT = "M335@ICT-BZ"
+  readonly QRCODECONTENT = 'M335@ICT-BZ';
 
-  constructor(private router: Router, private scoreboardService: ScoreboardService ) { }
+  constructor(
+    private router: Router,
+    private scoreboardService: ScoreboardService
+  ) {}
 
   async startScan() {
     try {
@@ -35,11 +47,11 @@ export class Task3Page {
       if (barcode.ScanResult === this.QRCODECONTENT) {
         this.isCompleted = true;
       } else {
-        alert("Wrong QR Code")
+        alert('Wrong QR Code');
       }
     } catch (err) {
       console.error('Error scanning barcode:', err);
-      alert("Error scanning QR Code");
+      alert('Error scanning QR Code');
     }
   }
 
@@ -54,7 +66,6 @@ export class Task3Page {
   }
 
   backToStart() {
-    this.router.navigate(['start-hunt']).then(() => {
-    });
+    this.router.navigate(['start-hunt']).then(() => {});
   }
 }
